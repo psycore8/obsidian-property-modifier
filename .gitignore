@@ -1,3 +1,6 @@
+# Obsidian internal
+obsidian-property-modifier.md
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
