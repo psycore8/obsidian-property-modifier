@@ -1,0 +1,12 @@
+stz_date: 2024-10-05
+stz_sport: false
+stz_steps: false
+stz_dose:
+  - "30"
+  - "30"
+  - "10"
+stz_mood: 8
+stz_meds: 
+stz_comment: false
+tags:
+  - Label/STZ
