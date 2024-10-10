@@ -7,56 +7,86 @@
 
 Sometimes it is neccessary to change or delete this properties, because the data processing behind needs it.
 
-This python script process a directory with markdown files and adds or deletes properties in their.
+The Python script processes markdown files within a directory. It can add, modify, or delete properties.
 
 ## Usage
 
 ```
-Obsidian Property Modifier 0.1.0 by psycore8
-usage: Obsidian Property Modifier [-h] [-m] [-d] -wd WORKING_DIR -pn PROP_NAME [-pv PROP_VALUE]
+Obsidian Property Modifier 0.1.1 by psycore8
+usage: Obsidian Property Modifier [-h] [-m {field,value}] [-d] -wd WORKING_DIR -pf PROP_FIELD [-nf NEW_FIELD]
+                                  [-pv PROP_VALUE]
 
 Tool for mass manipulating Obsidian Properties
 
 options:
   -h, --help            show this help message and exit
-  -m, --modify          add or modify properties in a directory
+  -m {field,value}, --modify {field,value}
+                        add or modify property fields or values in a directory
   -d, --delete          delete properties in a directory
   -wd WORKING_DIR, --working-dir WORKING_DIR
                         the directory with the md files to process
-  -pn PROP_NAME, --prop-name PROP_NAME
-                        the property name is required for delete and modify
+  -pf PROP_FIELD, --prop-field PROP_FIELD
+                        the property field is required for delete and modify
+  -nf NEW_FIELD, --new-field NEW_FIELD
+                        modify the field name to this value
   -pv PROP_VALUE, --prop-value PROP_VALUE
                         the property value is needed for add or mod
 ```
 
 ## Examples
 
-### MD File
+### Markdown File
 
 ```markdown
 ---
-field1: false
-field2: Stringfield
-field3:
-  - tag1
-  - tag2
+city: Ohio
+district: Florida
 ---
-# Testfile
-
-## Notes
 ```
 
-`-m -wd directory -pn field2 -pv godmode`
-`-d -wd directoy -pn field3`
+#### Adding a field with value
 
-The properties will be modified as followed:
+`python propmod.py -wd directory --modify value --prop-field short --prop-value FL`
 
 ```markdown
 ---
-field1: false
-field2: godmode
+city: Ohio
+district: Florida
+short: FL
 ---
-# Testfile
+```
 
-## Notes
+#### Modify a value
+
+`python propmod.py -wd directory --modify value --prop-field city --prop-value Miami`
+
+```markdown
+---
+city: Miami
+district: Florida
+short: FL
+---
+```
+
+#### Modify a field
+
+`python propmod.py -wd directory --modify field --prop-field district --new-field state`
+
+```markdown
+---
+city: Miami
+state: Florida
+short: FL
+---
+```
+
+#### Delete a field
+
+`python propmod.py -wd directory --delete --prop-field short`
+
+```markdown
+---
+city: Miami
+state: Florida
+---
 ```

@@ -54,8 +54,15 @@ class Properties:
         yaml_data = yaml.dump(data, default_flow_style=False)
         return yaml_data
 
-    def Modify(properties=str, property_name=str, property_value=any):
+    def ModifyValue(properties=str, property_name=str, property_value=any):
         data = yaml.safe_load(properties)
         data[property_name] = property_value
+        yaml_data = yaml.dump(data, default_flow_style=False)
+        return yaml_data
+    
+    def ModifyField(properties=str, property_name=str, property_new_name=str):
+        data = yaml.safe_load(properties)
+        if property_name in data:
+            data[property_new_name] = data.pop(property_name)
         yaml_data = yaml.dump(data, default_flow_style=False)
         return yaml_data
