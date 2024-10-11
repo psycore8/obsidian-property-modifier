@@ -2,7 +2,7 @@ import utils.obsidian
 import utils.helper
 import argparse
 
-Version = '0.1.1'
+Version = '0.1.2'
 
 def main():
     nstate = utils.helper.nstate
@@ -18,14 +18,16 @@ def main():
     parser.add_argument('-pf', '--prop-field', required=True, help='the property field is required for delete and modify')
     parser.add_argument('-nf', '--new-field', help='modify the field name to this value')
     parser.add_argument('-pv', '--prop-value', help='the property value is needed for add or mod')
+    parser.add_argument('-pt', '--prop-type', choices=['bool', 'int', 'str'], default='str', help='data type for property field')
     args = parser.parse_args()
     if args.modify == 'value':
         if args.prop_field != '' and args.prop_value != '':
             FileList = utils.obsidian.Files.GetFilesInDirectory(f'{args.working_dir}\\*.md')
             for filename in FileList:
                 print(f'{nstate.OKBLUE} processing {filename}')
+                property_value = utils.obsidian.Properties.ConvertDataType(args.prop_value, args.prop_type)
                 properties = utils.obsidian.Properties.ExtractProperties(filename)
-                mod_properties = utils.obsidian.Properties.ModifyValue(properties, args.prop_field, args.prop_value)
+                mod_properties = utils.obsidian.Properties.ModifyValue(properties, args.prop_field, property_value)
                 utils.obsidian.Properties.DumpProperties(filename, mod_properties)
                 print(f'{nstate.OKGREEN} DONE!')
         else:

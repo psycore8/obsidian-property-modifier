@@ -6,6 +6,19 @@ class Files:
         return FileList
 
 class Properties:
+
+    def ConvertDataType(input=any, data_type=str):
+        if data_type == 'bool':
+            if input == 'true':
+                output = True
+            else:
+                output = False
+        elif data_type == 'int':
+            output = int(input)
+        else:
+            output = input
+        return output
+
     def ExtractProperties(file_name):
         with open(file_name, 'r') as file:
             lines = file.readlines()
@@ -39,14 +52,6 @@ class Properties:
                 changed_lines.append(line)
         with open(file_name, 'w') as file:
            file.writelines(changed_lines)
-
-        
-    def TestYAML(FileName):
-        with open(FileName, 'r') as file:
-            yaml_objects = yaml.safe_load_all(file)
-            for yaml_object in yaml_objects:
-                print(yaml_object)
-                yaml_object['stz_test']
     
     def Delete(properties=str, property_name=str):
         data = yaml.safe_load(properties)
@@ -60,7 +65,7 @@ class Properties:
         yaml_data = yaml.dump(data, default_flow_style=False)
         return yaml_data
     
-    def ModifyField(properties=str, property_name=str, property_new_name=str):
+    def ModifyField(properties=str, property_name=str, property_new_name=any):
         data = yaml.safe_load(properties)
         if property_name in data:
             data[property_new_name] = data.pop(property_name)
