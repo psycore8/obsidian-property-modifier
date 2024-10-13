@@ -64,7 +64,7 @@ class Properties:
         data[property_name] = property_value
         yaml_data = yaml.dump(data, default_flow_style=False)
         return yaml_data
-    
+        
     def ModifyField(properties=str, property_name=str, property_new_name=any):
         data = yaml.safe_load(properties)
         if property_name in data:

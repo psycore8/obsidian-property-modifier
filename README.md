@@ -12,10 +12,7 @@ The Python script processes markdown files within a directory. It can add, modif
 ## Usage
 
 ```
-Obsidian Property Modifier 0.1.1 by psycore8
-usage: Obsidian Property Modifier [-h] [-m {field,value}] [-d] -wd WORKING_DIR -pf PROP_FIELD [-nf NEW_FIELD]
-                                  [-pv PROP_VALUE]
-
+Obsidian Property Modifier 0.1.2 by psycore8
 Tool for mass manipulating Obsidian Properties
 
 options:
@@ -23,32 +20,41 @@ options:
   -m {field,value}, --modify {field,value}
                         add or modify property fields or values in a directory
   -d, --delete          delete properties in a directory
-  -wd WORKING_DIR, --working-dir WORKING_DIR
+  -dir WORKING_DIR, --working-dir WORKING_DIR
                         the directory with the md files to process
-  -pf PROP_FIELD, --prop-field PROP_FIELD
+  -f FIELD, --field FIELD
                         the property field is required for delete and modify
-  -nf NEW_FIELD, --new-field NEW_FIELD
+  -n NEW_FIELD, --new-field NEW_FIELD
                         modify the field name to this value
-  -pv PROP_VALUE, --prop-value PROP_VALUE
+  -t {bool,int,str}, --type {bool,int,str}
+                        data type for property field
+  -v VALUE, --value VALUE
                         the property value is needed for add or mod
+```
+
+If your working directory is always the same, you can use a config file to input this argument:
+
+```stylus
+[arguments]
+working_directory = directory
 ```
 
 ## Examples
 
 ### Markdown File
 
-```markdown
+```stylus
 ---
 city: Ohio
 district: Florida
 ---
 ```
 
-#### Adding a field with value
+### Adding a field with value
 
-`python propmod.py -wd directory --modify value --prop-field short --prop-value FL`
+`python propmod.py -dir directory --modify value --field short --value FL`
 
-```markdown
+```stylus
 ---
 city: Ohio
 district: Florida
@@ -56,11 +62,13 @@ short: FL
 ---
 ```
 
+#### Modify
+
 #### Modify a value
 
-`python propmod.py -wd directory --modify value --prop-field city --prop-value Miami`
+`python propmod.py -dir directory --modify value --field city --value Miami`
 
-```markdown
+```stylus
 ---
 city: Miami
 district: Florida
@@ -68,25 +76,39 @@ short: FL
 ---
 ```
 
+#### Modify a value and the data type
+
+`python propmod.py -dir directory --modify value --field proof --value True --type bool`
+
+```stylus
+---
+city: Miami
+district: Florida
+short: FL
+proof: True
+---
+```
 #### Modify a field
 
-`python propmod.py -wd directory --modify field --prop-field district --new-field state`
+`python propmod.py -dir directory --modify field --field district --new-field state`
 
-```markdown
+```stylus
 ---
 city: Miami
 state: Florida
 short: FL
+proof: True
 ---
 ```
 
 #### Delete a field
 
-`python propmod.py -wd directory --delete --prop-field short`
+`python propmod.py -dir directory --delete --field short`
 
-```markdown
+```stylus
 ---
 city: Miami
 state: Florida
+proof: True
 ---
 ```
