@@ -12,8 +12,11 @@ The Python script processes markdown files within a directory. It can add, modif
 ## Usage
 
 ```
-Obsidian Property Modifier 0.1.2 by psycore8
+Obsidian Property Modifier 0.1.3 by psycore8
 Tool for mass manipulating Obsidian Properties
+
+usage: Obsidian Property Modifier [-h] [-m {field,value}] [-d] [-dir WORKING_DIR] -f FIELD [-n NEW_FIELD]
+                                  [-t {bool,int,str,date,datetime}] [-v VALUE]
 
 options:
   -h, --help            show this help message and exit
@@ -26,7 +29,7 @@ options:
                         the property field is required for delete and modify
   -n NEW_FIELD, --new-field NEW_FIELD
                         modify the field name to this value
-  -t {bool,int,str}, --type {bool,int,str}
+  -t {bool,int,str,date,datetime}, --type {bool,int,str,date,datetime}
                         data type for property field
   -v VALUE, --value VALUE
                         the property value is needed for add or mod
@@ -62,6 +65,23 @@ short: FL
 ---
 ```
 
+#### Adding a date or datetime
+
+`python propmod.py -dir directory --modify value --field date --value 01.05.1999 --type date`
+
+or
+
+`python propmod.py -dir directory --modify value --field datetime --value 01.05.1999-12:35 --type datetime`
+
+results in
+
+```stylus
+...
+date: 1999-05-01
+OR
+datetime: 1999-05-01 12:35:00
+...
+```
 #### Modify
 
 #### Modify a value

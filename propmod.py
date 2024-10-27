@@ -4,7 +4,7 @@ import argparse
 from configparser import ConfigParser
 from os import path
 
-Version = '0.1.2'
+Version = '0.1.3'
 
 def main():
     nstate = utils.helper.nstate
@@ -31,7 +31,9 @@ def main():
     parser.add_argument('-dir', '--working-dir', required=False, help='the directory with the md files to process')
     parser.add_argument('-f', '--field', required=True, help='the property field is required for delete and modify')
     parser.add_argument('-n', '--new-field', help='modify the field name to this value')
-    parser.add_argument('-t', '--type', choices=['bool', 'int', 'str'], default='str', help='data type for property field')
+    parser.add_argument('-t', '--type', choices=['bool', 'int', 'str', 'date', 'datetime'],
+                        default='str',
+                        help='data type for property field')
     parser.add_argument('-v', '--value', help='the property value is needed for add or mod')
     args = parser.parse_args()
 

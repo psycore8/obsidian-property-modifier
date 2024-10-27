@@ -1,4 +1,4 @@
-import glob, yaml
+import glob, yaml, datetime
 
 class Files:
     def GetFilesInDirectory(Directory):
@@ -15,8 +15,18 @@ class Properties:
                 output = False
         elif data_type == 'int':
             output = int(input)
+        elif data_type == 'date':
+            dt = datetime.datetime
+            date = dt.strptime(input, '%d.%m.%Y')
+            output = dt.date(date)
+        elif data_type == 'datetime':
+            dt = datetime.datetime
+            date = dt.strptime(input, '%d.%m.%Y-%H:%M')
+            output = date
+        elif data_type == 'list': #todo
+            output = ''
         else:
-            output = input
+            output = f'{input}'
         return output
 
     def ExtractProperties(file_name):
